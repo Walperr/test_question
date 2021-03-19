@@ -1,0 +1,13 @@
+D:\vladb\Documents\source\repos\test_question\bin\Debug\netcoreapp3.1\test_question.exe
+D:\vladb\Documents\source\repos\test_question\bin\Debug\netcoreapp3.1\test_question.deps.json
+D:\vladb\Documents\source\repos\test_question\bin\Debug\netcoreapp3.1\test_question.runtimeconfig.json
+D:\vladb\Documents\source\repos\test_question\bin\Debug\netcoreapp3.1\test_question.runtimeconfig.dev.json
+D:\vladb\Documents\source\repos\test_question\bin\Debug\netcoreapp3.1\test_question.dll
+D:\vladb\Documents\source\repos\test_question\bin\Debug\netcoreapp3.1\test_question.pdb
+D:\vladb\Documents\source\repos\test_question\obj\Debug\netcoreapp3.1\test_question.csprojAssemblyReference.cache
+D:\vladb\Documents\source\repos\test_question\obj\Debug\netcoreapp3.1\test_question.AssemblyInfoInputs.cache
+D:\vladb\Documents\source\repos\test_question\obj\Debug\netcoreapp3.1\test_question.AssemblyInfo.cs
+D:\vladb\Documents\source\repos\test_question\obj\Debug\netcoreapp3.1\test_question.csproj.CoreCompileInputs.cache
+D:\vladb\Documents\source\repos\test_question\obj\Debug\netcoreapp3.1\test_question.dll
+D:\vladb\Documents\source\repos\test_question\obj\Debug\netcoreapp3.1\test_question.pdb
+D:\vladb\Documents\source\repos\test_question\obj\Debug\netcoreapp3.1\test_question.genruntimeconfig.cache
