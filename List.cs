@@ -50,6 +50,16 @@ namespace test_question
                 Head = null;
         }
 
+        public static List<T> Unite(List<T> a, List<T> b)
+        {
+            var New_List = new List<T>();
+
+            b.Head.CopyTo(New_List);
+            a.Head.CopyTo(New_List);
+            
+            return New_List;
+        }
+
         IEnumerator<T> IEnumerable<T>.GetEnumerator()
         {
             return new ListEnumerator<T>(this);
@@ -70,6 +80,14 @@ namespace test_question
             {
                 this.data = data;
                 next = null;
+            }
+
+            public void CopyTo(List<T1> other)
+            {
+                if(next != null)
+                    next.CopyTo(other);
+
+                other.Add(data);
             }
         }
         class ListEnumerator<T2> : IEnumerator<T2>
