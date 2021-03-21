@@ -5,76 +5,122 @@ using System.Text;
 
 namespace test_question
 {
-
     class List<T> : IEnumerable<T>
     {
-        private Node<T> Head { get; set; }
+        private readonly Node<T> Head;
 
-        public List()
+        public List() => Head = null;
+        
+        public List(T data) => Head = new Node<T>(data);
+        
+        private List(T data, List<T> old_list)
         {
-            Head = null;
+            var current_input = old_list.Head;
+
+            Node<T> last = null;
+            Node<T> temp = null;
+
+            while (last != old_list.Head)
+            {
+                while(current_input.next != last)
+                    current_input = current_input.next;
+
+                temp = new Node<T>(current_input.data, temp);
+                last = current_input;
+                current_input = old_list.Head;
+            }
+
+            Head = new Node<T>(data, temp);
+            
         }
 
-        public List(T data)
+        public List<T> Add(T data)
         {
-            Head = new Node<T>(data);
-        }
+            List<T> output;
 
-        public void Add(T data)
-        {
             if (Head == null)
-            {
-                Head = new Node<T>(data);
-                return;
-            }
+                output = new List<T>(data);
+            else
+                output = new List<T>(data, this);
 
-            var temp = new Node<T>(Head.data);
-
-            temp.next = Head.next;
-
-            Head.next = temp;
-
-            Head.data = data;
+            return output;
         }
 
-        public void Remove()
+        public List<T> Remove()
         {
-            if (Head == null) return;
+            List<T> output = new List<T>();
 
-            if (Head.next != null)
+            var current_input = Head;
+
+            Node<T> last = null;
+            
+            while (last != Head)
             {
-                Head.data = Head.next.data;
-                Head.next = Head.next.next;
+                while (current_input.next != last)
+                    current_input = current_input.next;
+
+                if(current_input != Head)
+                    output = output.Add(current_input.data);
+                
+                last = current_input;
+                current_input = Head;
             }
-            else
-                Head = null;
+
+            return output;
         }
 
         public static List<T> Unite(List<T> a, List<T> b)
         {
-            var New_List = new List<T>();
+            List<T> output = new List<T>();
 
-            b.Head.CopyTo(New_List);
-            a.Head.CopyTo(New_List);
-            
-            return New_List;
+            var current_input = b.Head;
+
+            Node<T> last = null;
+
+            while (last != b.Head)
+            {
+                while (current_input.next != last)
+                    current_input = current_input.next;
+
+                    output = output.Add(current_input.data);
+
+                last = current_input;
+                current_input = b.Head;
+            }
+
+            current_input = a.Head;
+
+            last = null;
+
+            while (last != a.Head)
+            {
+                while (current_input.next != last)
+                    current_input = current_input.next;
+
+                output = output.Add(current_input.data);
+
+                last = current_input;
+                current_input = a.Head;
+            }
+
+            return output;
         }
 
         IEnumerator<T> IEnumerable<T>.GetEnumerator()
         {
-            return new ListEnumerator<T>(this);
+            return new List_Enumerator<T>(this);
         }
 
         IEnumerator IEnumerable.GetEnumerator()
         {
-            return new ListEnumerator<T>(this);
+            return new List_Enumerator<T>(this);
         }
 
-        class Node<T1>
+        private class Node<T1>
         {
-            public T1 data;
+            public readonly T1 data;
 
-            public Node<T1> next;
+            public readonly Node<T1> next;
 
             public Node(T1 data)
             {
@@ -82,56 +128,44 @@ namespace test_question
                 next = null;
             }
 
-            public void CopyTo(List<T1> other)
+            public Node(T1 data, Node<T1> next)
             {
-                if(next != null)
-                    next.CopyTo(other);
-
-                other.Add(data);
+                this.data = data;
+                this.next = next;
             }
         }
-        class ListEnumerator<T2> : IEnumerator<T2>
+
+        private class List_Enumerator<T2> : IEnumerator<T>
         {
-            private List<T2> list;
+            private readonly List<T> list;
 
-            T2 IEnumerator<T2>.Current { get { return current.data; } }
+            public T Current { get { return current.data; } }
 
-            object IEnumerator.Current { get { return current.data; } }
+            object IEnumerator.Current => throw new NotImplementedException();
 
-            private List<T2>.Node<T2> current;
+            private Node<T> current;
 
-            public ListEnumerator(List<T2> list)
-            {
-                this.list = list;
-                current = null;
-            }
+            public List_Enumerator(List<T> list) => this.list = list;
 
+            public void Dispose() => Reset();
+            
             public bool MoveNext()
             {
-                if (list.Head == null)
-                    return false;
-
                 if (current == null)
                 {
                     current = list.Head;
                     return true;
                 }
-                if (current.next != null)
+
+                if(current.next != null)
                 {
                     current = current.next;
                     return true;
                 }
-                else return false;
-            }
-            public void Reset()
-            {
-                current = list.Head;
-            }
-            void IDisposable.Dispose()
-            {
-                Reset();
+                return false;
             }
 
+            public void Reset() => current = null;
         }
     }
 }

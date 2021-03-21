@@ -6,59 +6,41 @@ namespace test_question
     {
         static void Main(string[] args)
         {
-            List<string> list = new List<string>();
+            List<int> a = new List<int>(7);
 
-            list.Add("one");
-            list.Add("three");
-            list.Add("four");
-            list.Add("seven");
-            list.Add("zero");
+            a = a.Add(5);
+            a = a.Add(1);
+            a = a.Add(2);
+            a = a.Add(8);
 
-            Console.WriteLine("------list-------");
-
-            foreach (var i in list)
-                Console.WriteLine(i);
-
-            list.Remove();
-            list.Remove();
-
-            Console.WriteLine("------list_removed-------");
-
-            foreach (var i in list)
-                Console.WriteLine(i);
-
-            List<int> a = new List<int>();
-
-            a.Add(0);
-            a.Add(2);
-            a.Add(3);
-            a.Add(5);
-
-            List<int> b = new List<int>();
-
-            b.Add(1);
-            b.Add(4); 
-            b.Add(6);
-            b.Add(7);
-            b.Add(8);
-            b.Add(9);
-
-            var Unitedab = List<int>.Unite(a, b);
-
-            Console.WriteLine("------a-------");
+            Console.WriteLine("-------a-------");
 
             foreach (var i in a)
                 Console.WriteLine(i);
 
-            Console.WriteLine("------b-------");
+            var b = a.Add(45);
+
+            Console.WriteLine("------b = a.add(45)------");
 
             foreach (var i in b)
                 Console.WriteLine(i);
 
-            Console.WriteLine("-------a + b------");
+            Console.WriteLine("------c = b.remove()------");
 
-            foreach (var i in Unitedab)
+            var c = b.Remove();
+
+            Console.WriteLine("------c = b.remove()------");
+
+            foreach (var i in c)
                 Console.WriteLine(i);
+
+            var t = List<int>.Unite(b, c);
+
+            Console.WriteLine("------t = b + c------");
+
+           foreach (var i in t)
+                Console.WriteLine(i);
+
         }
     }
 }
